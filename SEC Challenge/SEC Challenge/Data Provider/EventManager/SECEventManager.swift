@@ -25,19 +25,43 @@ class SECEventManager: EventManager {
         }
     }
     
-    func findEvents(withName name: String) -> [SECEvent] {
-        // TODO: add your implementation for this method
-        return []
+    func findEvents(withName name: String, completion: ([SECEvent])->() ) {
+        getEvents { (eventList) in
+            guard let events = eventList else { return }
+            
+            let matchingEvents = events.compactMap({ (event) -> SECEvent? in
+                guard let eventName = event.name else { return nil }
+                return eventName.contains(name) ? event : nil
+            })
+            
+            completion(matchingEvents)
+        }
     }
     
-    func findEvents(from: Date, to: Date) -> [SECEvent] {
-        // TODO: add your implementation for this method
-        return []
+    func findEvents(from firstDate: Date, to lastDate: Date, completion: ([SECEvent])->() ) {
+        getEvents { (eventList) in
+            guard let events = eventList else { return }
+            
+            let matchingEvents = events.compactMap({ (event) -> SECEvent? in
+                guard let date = event.date else { return nil }
+                return date > firstDate && date < lastDate ? event : nil
+            })
+            
+            completion(matchingEvents)
+        }
     }
     
-    func findEvents(fromSpeaker: SECSpeaker) -> [SECEvent] {
-        // TODO: add your implementation for this method
-        return []
+    func findEvents(fromSpeaker speaker: SECSpeaker, completion: ([SECEvent])->() ) {
+        
+        getEvents { (eventList) in
+            guard let events = eventList else { return }
+            let matchingEvents = events.compactMap({ (event) -> SECEvent? in
+                guard let speakers = event.speakers else { return nil }
+                return speakers.contains(speaker) ? event : nil
+            })
+            
+            completion(matchingEvents)
+        }
     }
 }
 

@@ -8,8 +8,12 @@
 
 import Foundation
 
-struct SECSpeaker {
+struct SECSpeaker: Equatable {
     let name: String?
     let position: String?
     let avatarURL: URL?
+    
+    static func == (lhs: SECSpeaker, rhs: SECSpeaker) -> Bool {
+        return lhs.name == rhs.name && lhs.position == rhs.position
+    }
 }

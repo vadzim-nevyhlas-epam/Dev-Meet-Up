@@ -22,7 +22,7 @@ protocol EventManager {
      
      - parameter name: Name of the **SECEvent**
      */
-    func findEvents(withName name: String) -> [SECEvent]
+    func findEvents(withName name: String, completion: ([SECEvent])->() )
     
     /**
      This function returns list of **SECEvents**
@@ -30,12 +30,12 @@ protocol EventManager {
      - parameter firstDate: Date before the start of the **SECEvent**
      - parameter lastDate: Date after the end of the **SECEvent**
      */
-    func findEvents(from firstDate: Date, to lastDate: Date) -> [SECEvent]
+    func findEvents(from firstDate: Date, to lastDate: Date, completion: ([SECEvent])->() )
     
     /**
      This function returns list of **SECEvents**
      
      - parameter speaker: SECSpeaker in list of speakers at the **SECEvent**
      */
-    func findEvents(fromSpeaker speaker: SECSpeaker) -> [SECEvent]
+    func findEvents(fromSpeaker speaker: SECSpeaker, completion: ([SECEvent])->() )
 }

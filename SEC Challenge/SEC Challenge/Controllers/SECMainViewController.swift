@@ -15,7 +15,9 @@ class SECMainViewController: UIViewController {
         // Example
         let manager: EventManager = SECEventManager(networkManager: SECNetworkManager())
         manager.getEvents { (events) in
-            print("\(String(describing: events))")
+            events?.forEach({ (event) in
+                print("\(event)")
+            })
         }
         
         // TODO: implement your ideas!
